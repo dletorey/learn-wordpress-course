@@ -1,0 +1,1 @@
+2021/03/25 11:59:55 [error] 4850#0: *820 directory index of "/Users/dletorey/Local Sites/fictional-university/app/public/" is forbidden, client: 127.0.0.1, server: , request: "GET / HTTP/1.0", host: "fictional-university.local"
