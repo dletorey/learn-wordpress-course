@@ -8,6 +8,9 @@ function university_files() {
 
 function university_features() {
     add_theme_support('title-tag');
+    register_nav_menu('headerMenuLocation', 'Header Menu Location');
+    register_nav_menu('footerLocation1', 'Footer Location Explore');
+    register_nav_menu('footerLocation2', 'Footer Location Learn');
 }
 
 add_action('wp_enqueue_scripts', 'university_files');
