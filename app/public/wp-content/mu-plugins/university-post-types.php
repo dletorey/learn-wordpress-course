@@ -21,7 +21,8 @@ function university_post_types() {
             'name' => 'DaveType',
             'add_new_item' => 'Add New Dave',
             'edit_item' => 'Edit Dave',
-            'all_items' => 'All Daves'
+            'all_items' => 'All Daves',
+            'singular_name' => 'Dave'
         ),
         'menu_icon' => 'dashicons-universal-access-alt'
     ));
