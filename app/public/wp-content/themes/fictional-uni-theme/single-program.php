@@ -39,9 +39,9 @@
                 )
               )
             ));
-            if ($relatedEvents) {
+            if ($relatedEvents->have_posts()) {
               echo '<hr class="section-break">';
-              echo '<h2>Related Event(s)</h2>';
+              echo '<h2 class="headline headline--medium">Upcoming ' . get_the_title() . ' Event(s)</h2>';
               while ($relatedEvents->have_posts()) {
                 $relatedEvents->the_post(); ?>
                 <!-- html -->
