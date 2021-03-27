@@ -1,3 +1,5 @@
 .DS_Store
-logs/
+logs/*
+logs/php/php-fpm.log
 app/public/wp-content/themes/fictional-uni-theme/node_modules/
+app/sql/*
