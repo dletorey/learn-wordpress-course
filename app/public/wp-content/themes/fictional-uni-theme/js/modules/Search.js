@@ -5,8 +5,15 @@ class SearchObject {
         this.closeButton = document.querySelector(".search-overlay__close");
         this.searchOverlay = document.querySelector(".search-overlay");
         this.body = document.querySelector("body");
-        this.events();
+        this.searchInput = document.querySelector("#search-term");
+        this.results = document.querySelector("#search-overlay__results");
+        this.spinner = document.createElement('div');
+        this.spinner.classList.add('spinner-loader');
         this.isOverlayOpen = false;
+        this.isSpinnerVisible = false;
+        this.typingTimer;
+        this.previousValue;
+        this.events();
     }
  
     //2. events
@@ -14,10 +21,31 @@ class SearchObject {
         this.openButton[0].addEventListener('click', this.openOverlay.bind(this));
         this.openButton[1].addEventListener('click', this.openOverlay.bind(this));
         this.closeButton.addEventListener('click', this.closeOverlay.bind(this));
-        document.addEventListener('keyup', this.keyPressDispatcher.bind(this));
+        document.addEventListener('keydown', this.keyPressDispatcher.bind(this));
+        this.searchInput.addEventListener('keyup', this.typingLogic.bind(this));
     }
  
     //3. methods (or functions)
+    typingLogic() {
+        if (this.searchInput.value != this.previousValue) {
+            clearTimeout(this.typingTimer);
+            if (this.searchInput.value) {
+                if (!this.isSpinnerVisible) {
+                    this.results.innerHTML = "<div class='spinner-loader'></div>";
+                    this.isSpinnerVisible = true;
+                }
+                this.typingTimer = setTimeout(this.loadResults.bind(this), 2000);
+            } else {
+                this.results.innerHTML = "";
+                this.isSpinnerVisible = false;
+            }
+        }
+        this.previousValue = this.searchInput.value;
+    }
+    loadResults(){
+        this.results.innerHTML = "<p>Here are some results</p>";
+        this.isSpinnerVisible = false;
+    }
     keyPressDispatcher(e) {
         if (e.keyCode == 83 && !this.isOverlayOpen) {
             this.openOverlay();
