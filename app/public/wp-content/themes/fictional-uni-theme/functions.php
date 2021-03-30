@@ -76,9 +76,10 @@ function university_adjust_queries($query) {
 }
 
 add_action('pre_get_posts', 'university_adjust_queries');
-
+include 'secrets.php';
 function universityMapKey($api) {
-    $api['key'] = 'AIzaSyAEW9DHPHx1ACdr9DKaQO8oF2iJLuIUX1k';
+    global $googleMapAPI;
+    $api['key'] = $googleMapAPI; // 'AIzaSyAEW9DHPHx1ACdr9DKaQO8oF2iJLuIUX1k';
     return $api;
 }
 
