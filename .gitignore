@@ -3,3 +3,4 @@ logs/*
 logs/php/php-fpm.log
 app/public/wp-content/themes/fictional-uni-theme/node_modules/
 app/sql/*
+app/public/wp-content/themes/fictional-uni-theme/secrets.php
