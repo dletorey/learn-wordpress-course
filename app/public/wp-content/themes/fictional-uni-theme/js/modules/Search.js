@@ -43,8 +43,13 @@ class SearchObject {
         this.previousValue = this.searchInput.value;
     }
     loadResults(){
-        this.results.innerHTML = "<p>Here are some results</p>";
-        this.isSpinnerVisible = false;
+        fetch('/wp-json/wp/v2/posts?search=' + this.searchInput.value) // Call the fetch function passing the url of the API as a parameter
+        .then(response => response.json())
+        .then(data => console.log(data[0].title.rendered))
+        .catch(function() {
+            // This is where you run code if the server returns any errors
+            console.log('Well that failed');
+        });
     }
     keyPressDispatcher(e) {
         if (e.keyCode == 83 && !this.isOverlayOpen) {
