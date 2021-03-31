@@ -1,5 +1,15 @@
 <?php 
 
+function uni_custom_rest() {
+    // This function adds a new field to the json for a post in this case a field called authorName
+    // that gets the name of the posts author using the function get_the_author()
+    register_rest_field('post', 'authorName', array(
+        'get_callback' => function() {return get_the_author();}
+    ));
+}
+
+add_action('rest_api_init', 'uni_custom_rest');
+
 function pageBanner($args = NULL) {
     if (!$args['title']) {
         $args['title'] = get_the_title();

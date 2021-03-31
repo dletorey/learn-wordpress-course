@@ -77,11 +77,11 @@ class SearchObject {
         const posts = await postResponse.json();
         const pages = await pageResponse.json();
         const combinedResults = posts.concat(pages);
-        console.table(combinedResults);
+        console.log(combinedResults);
         results.innerHTML = `
             <h2 class="search-overlay__section-title">General Information</h2>
             ${combinedResults.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
-            ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
+            ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a>${item.type == 'post' ? ` by ${item.authorName}` : ''}</li>`).join('')}
             ${combinedResults.length ? '</ul>' : ''}
             `
         } catch(error) {
