@@ -68,6 +68,7 @@ class SearchObject {
         this.isSpinnerVisible = false;
     }
     async loadMultiResultTypes() {
+        try {
         let results = this.results;
         const [postResponse, pageResponse] = await Promise.all([
             fetch(uniData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.value),
@@ -83,6 +84,9 @@ class SearchObject {
             ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
             ${combinedResults.length ? '</ul>' : ''}
             `
+        } catch(error) {
+            results.innerHTML = `<p>Sorry something has gone wrong please try later. ${error}</p>`
+        }
     }
     keyPressDispatcher(e) {
         if (e.keyCode == 83 && !this.isOverlayOpen) {
