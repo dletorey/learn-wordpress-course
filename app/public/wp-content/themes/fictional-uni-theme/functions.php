@@ -1,5 +1,7 @@
 <?php 
 
+require get_theme_file_path('/includes/search-route.php');
+
 function uni_custom_rest() {
     // This function adds a new field to the json for a post in this case a field called authorName
     // that gets the name of the posts author using the function get_the_author()
