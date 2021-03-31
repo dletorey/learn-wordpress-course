@@ -40,7 +40,7 @@ class SearchObject {
                     this.results.innerHTML = "<div class='spinner-loader'></div>";
                     this.isSpinnerVisible = true;
                 }
-                this.typingTimer = setTimeout(this.loadResults.bind(this), 2000);
+                this.typingTimer = setTimeout(this.loadResults.bind(this), 1000);
             } else {
                 this.results.innerHTML = "";
                 this.isSpinnerVisible = false;
@@ -50,20 +50,21 @@ class SearchObject {
     }
     loadResults(){
         let results = this.results;
-        fetch('/wp-json/wp/v2/posts?search=' + this.searchInput.value) // Call the fetch function passing the url of the API as a parameter
+        fetch(uniData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.value) // Call the fetch function passing the url of the API as a parameter
         .then(response => response.json())
         .then(function(data) {
             results.innerHTML = `
             <h2 class="search-overlay__section-title">General Information</h2>
-            <ul class="link-list min-list">
+            ${data.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
             ${data.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
-            </ul>
+            ${data.length ? '</ul>' : ''}
             `
         })
         .catch(function(ex) {
             // This is where you run code if the server returns any errors
             console.log('Well that failed' + ex.message);
         });
+        this.isSpinnerVisible = false;
     }
     keyPressDispatcher(e) {
         if (e.keyCode == 83 && !this.isOverlayOpen) {
