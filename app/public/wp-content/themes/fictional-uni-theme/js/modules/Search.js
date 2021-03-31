@@ -26,6 +26,12 @@ class SearchObject {
     }
  
     //3. methods (or functions)
+    createNode(element) {
+        return document.createElement(element);
+    }
+    append(parent, el) {
+        return parent.appendChild(el);
+    }
     typingLogic() {
         if (this.searchInput.value != this.previousValue) {
             clearTimeout(this.typingTimer);
@@ -43,12 +49,20 @@ class SearchObject {
         this.previousValue = this.searchInput.value;
     }
     loadResults(){
+        let results = this.results;
         fetch('/wp-json/wp/v2/posts?search=' + this.searchInput.value) // Call the fetch function passing the url of the API as a parameter
         .then(response => response.json())
-        .then(data => console.log(data[0].title.rendered))
-        .catch(function() {
+        .then(function(data) {
+            results.innerHTML = `
+            <h2 class="search-overlay__section-title">General Information</h2>
+            <ul class="link-list min-list">
+            ${data.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
+            </ul>
+            `
+        })
+        .catch(function(ex) {
             // This is where you run code if the server returns any errors
-            console.log('Well that failed');
+            console.log('Well that failed' + ex.message);
         });
     }
     keyPressDispatcher(e) {
