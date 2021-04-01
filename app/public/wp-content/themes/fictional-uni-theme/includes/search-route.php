@@ -28,7 +28,9 @@ function uniSearchResults($data) {
         if (get_post_type() == 'page' OR get_post_type() == 'post') {
             array_push($results['generalInfo'], array(
                 'title' => get_the_title(),
-                'link' => get_the_permalink()
+                'link' => get_the_permalink(),
+                'type' => get_post_type(),
+                'author' => get_the_author()
             ));
         }
         if (get_post_type() == 'professor') {

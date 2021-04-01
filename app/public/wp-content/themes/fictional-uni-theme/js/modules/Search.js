@@ -95,7 +95,7 @@ class SearchObject {
     // }
 
     // Third example at getting search results this is using a custom built json feed
-    
+
     loadNewResults() {
         let results = this.results;
         fetch(uniData.root_url + '/wp-json/university/v1/search?term=' + this.searchInput.value) // Call the fetch function passing the url of the API as a parameter
@@ -107,26 +107,26 @@ class SearchObject {
                 <div class="one-third">
                     <h2 class="search-overlay__section-title">General Information</h2>
                     ${data.generalInfo.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
-                    ${data.generalInfo.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
+                    ${data.generalInfo.map(item => `<li><a href="${item.permalink}">${item.title}</a>${item.type == 'post' ? ` by ${item.author}` : ''}</li>`).join('')}
                     ${data.generalInfo.length ? '</ul>' : ''}
                     </div>
                     <div class="one-third">
                     <h2 class="search-overlay__section-title">Programs</h2>
-                    ${data.programs.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
+                    ${data.programs.length ? '<ul class="link-list min-list">' : `<p>No programs match your search <a href="${uniData.root_url}/programs">View all Programs</a></p>` }
                     ${data.programs.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
                     ${data.programs.length ? '</ul>' : ''}
                     <h2 class="search-overlay__section-title">Professors</h2>
-                    ${data.professors.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
+                    ${data.professors.length ? '<ul class="link-list min-list">' : `<p>No professors match your search <a href="${uniData.root_url}/professors">View all Professors</a></p>` }
                     ${data.professors.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
                     ${data.professors.length ? '</ul>' : ''}
                     </div>
                     <div class="one-third">
                     <h2 class="search-overlay__section-title">Campuses</h2>
-                    ${data.campuses.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
+                    ${data.campuses.length ? '<ul class="link-list min-list">' : `<p>No campuses match your search <a href="${uniData.root_url}/campuses">View all Campuses</a></p>` }
                     ${data.campuses.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
                     ${data.campuses.length ? '</ul>' : ''}
                     <h2 class="search-overlay__section-title">Events</h2>
-                    ${data.events.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
+                    ${data.events.length ? '<ul class="link-list min-list">' : `<p>No events match your search <a href="${uniData.root_url}/events">view all upcoming events</a> or <a href="${uniData.root_url}/past-events">view all past events</a></p>` }
                     ${data.events.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
                     ${data.events.length ? '</ul>' : ''}
                 </div>
