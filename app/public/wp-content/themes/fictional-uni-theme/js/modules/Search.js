@@ -101,25 +101,25 @@ class SearchObject {
         fetch(uniData.root_url + '/wp-json/university/v1/search?term=' + this.searchInput.value) // Call the fetch function passing the url of the API as a parameter
         .then(response => response.json())
         .then(function(data) {
-            console.log("Data is " + data.generalInfo[0].title);
+            // console.log("Data is " + data.generalInfo[0].title);
             results.innerHTML = `
             <div class="row">
                 <div class="one-third">
                     <h2 class="search-overlay__section-title">General Information</h2>
                     ${data.generalInfo.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
-                    ${data.generalInfo.map(item => `<li><a href="${item.permalink}">${item.title}</a>${item.type == 'post' ? ` by ${item.author}` : ''}</li>`).join('')}
+                    ${data.generalInfo.map(item => `<li><a href="${item.link}">${item.title}</a>${item.type == 'post' ? ` by ${item.author}` : ''}</li>`).join('')}
                     ${data.generalInfo.length ? '</ul>' : ''}
                     </div>
                     <div class="one-third">
                     <h2 class="search-overlay__section-title">Programs</h2>
                     ${data.programs.length ? '<ul class="link-list min-list">' : `<p>No programs match your search <a href="${uniData.root_url}/programs">View all Programs</a></p>` }
-                    ${data.programs.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
+                    ${data.programs.map(item => `<li><a href="${item.link}">${item.title}</a></li>`).join('')}
                     ${data.programs.length ? '</ul>' : ''}
                     <h2 class="search-overlay__section-title">Professors</h2>
                     ${data.professors.length ? '<ul class="professor-cards">' : `<p>No professors match your search</p>` }
                     ${data.professors.map(item => `
                     <li class="professor-card__list-item">
-                        <a class="professor-card" href="${item.permalink}">
+                        <a class="professor-card" href="${item.link}">
                             <img src="${item.image}" alt="${item.title} avatar" class="professor-card__image">
                             <span class="professor-card__name">${item.title}</span>
                         </a>
@@ -130,19 +130,19 @@ class SearchObject {
                     <div class="one-third">
                     <h2 class="search-overlay__section-title">Campuses</h2>
                     ${data.campuses.length ? '<ul class="link-list min-list">' : `<p>No campuses match your search <a href="${uniData.root_url}/campuses">View all Campuses</a></p>` }
-                    ${data.campuses.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
+                    ${data.campuses.map(item => `<li><a href="${item.link}">${item.title}</a></li>`).join('')}
                     ${data.campuses.length ? '</ul>' : ''}
                     <h2 class="search-overlay__section-title">Events</h2>
                     ${data.events.length ? '' : `<p>No events match your search <a href="${uniData.root_url}/events">view all upcoming events</a> or <a href="${uniData.root_url}/past-events">view all past events</a></p>` }
                     ${data.events.map(item => `
                         <div class="event-summary">
-                            <a class="event-summary__date t-center" href="${item.permalink}">
+                            <a class="event-summary__date t-center" href="${item.link}">
                               <span class="event-summary__month">${item.month}</span>
                               <span class="event-summary__day">${item.day}</span>
                             </a>
                             <div class="event-summary__content">
-                              <h5 class="event-summary__title headline headline--tiny"><a href="${item.permalink}">${item.title}</a></h5>
-                              <p>${item.desc} <a href="${item.permalink}" class="nu gray">Learn more</a></p>
+                              <h5 class="event-summary__title headline headline--tiny"><a href="${item.link}">${item.title}</a></h5>
+                              <p>${item.desc} <a href="${item.link}" class="nu gray">Learn more</a></p>
                             </div>
                         </div>
                     `).join('')}
