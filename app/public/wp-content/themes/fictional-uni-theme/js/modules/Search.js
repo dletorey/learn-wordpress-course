@@ -41,7 +41,7 @@ class SearchObject {
                     this.results.innerHTML = "<div class='spinner-loader'></div>";
                     this.isSpinnerVisible = true;
                 }
-                this.typingTimer = setTimeout(this.loadMultiResultTypes.bind(this), 500);
+                this.typingTimer = setTimeout(this.loadNewResults.bind(this), 500);
             } else {
                 this.results.innerHTML = "";
                 this.isSpinnerVisible = false;
@@ -49,44 +49,88 @@ class SearchObject {
         }
         this.previousValue = this.searchInput.value;
     }
-    loadResults(){
+    // loadResults(){
+    //     let results = this.results;
+    //     fetch(uniData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.value) // Call the fetch function passing the url of the API as a parameter
+    //     .then(response => response.json())
+    //     .then(function(data) {
+    //         results.innerHTML = `
+    //         <h2 class="search-overlay__section-title">General Information</h2>
+    //         ${data.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
+    //         ${data.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
+    //         ${data.length ? '</ul>' : ''}
+    //         `
+    //     })
+    //     .catch(function(ex) {
+    //         // This is where you run code if the server returns any errors
+    //         console.log('Well that failed' + ex.message);
+    //     });
+    //     this.isSpinnerVisible = false;
+    // }
+    // async loadMultiResultTypes() {
+    //     try {
+    //     let results = this.results;
+    //     const [postResponse, pageResponse] = await Promise.all([
+    //         fetch(uniData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.value),
+    //         fetch(uniData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchInput.value)
+    //     ]);
+    //     const posts = await postResponse.json();
+    //     const pages = await pageResponse.json();
+    //     const combinedResults = posts.concat(pages);
+    //     console.log(combinedResults);
+    //     results.innerHTML = `
+    //         <h2 class="search-overlay__section-title">General Information</h2>
+    //         ${combinedResults.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
+    //         ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a>${item.type == 'post' ? ` by ${item.authorName}` : ''}</li>`).join('')}
+    //         ${combinedResults.length ? '</ul>' : ''}
+    //         `
+    //     } catch(error) {
+    //         results.innerHTML = `<p>Sorry something has gone wrong please try later. ${error}</p>`
+    //     }
+    // }
+    loadNewResults() {
         let results = this.results;
-        fetch(uniData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.value) // Call the fetch function passing the url of the API as a parameter
+        fetch(uniData.root_url + '/wp-json/university/v1/search?term=' + this.searchInput.value) // Call the fetch function passing the url of the API as a parameter
         .then(response => response.json())
         .then(function(data) {
+            console.log("Data is " + data.generalInfo[0].title);
             results.innerHTML = `
-            <h2 class="search-overlay__section-title">General Information</h2>
-            ${data.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
-            ${data.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
-            ${data.length ? '</ul>' : ''}
+            <div class="row">
+                <div class="one-third">
+                    <h2 class="search-overlay__section-title">General Information</h2>
+                    ${data.generalInfo.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
+                    ${data.generalInfo.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
+                    ${data.generalInfo.length ? '</ul>' : ''}
+                    </div>
+                    <div class="one-third">
+                    <h2 class="search-overlay__section-title">Programs</h2>
+                    ${data.programs.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
+                    ${data.programs.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
+                    ${data.programs.length ? '</ul>' : ''}
+                    <h2 class="search-overlay__section-title">Professors</h2>
+                    ${data.professors.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
+                    ${data.professors.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
+                    ${data.professors.length ? '</ul>' : ''}
+                    </div>
+                    <div class="one-third">
+                    <h2 class="search-overlay__section-title">Campuses</h2>
+                    ${data.campuses.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
+                    ${data.campuses.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
+                    ${data.campuses.length ? '</ul>' : ''}
+                    <h2 class="search-overlay__section-title">Events</h2>
+                    ${data.events.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
+                    ${data.events.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
+                    ${data.events.length ? '</ul>' : ''}
+                </div>
+            </div>
             `
         })
         .catch(function(ex) {
             // This is where you run code if the server returns any errors
-            console.log('Well that failed' + ex.message);
+            console.log('Well that failed ' + ex.message);
         });
         this.isSpinnerVisible = false;
-    }
-    async loadMultiResultTypes() {
-        try {
-        let results = this.results;
-        const [postResponse, pageResponse] = await Promise.all([
-            fetch(uniData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.value),
-            fetch(uniData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchInput.value)
-        ]);
-        const posts = await postResponse.json();
-        const pages = await pageResponse.json();
-        const combinedResults = posts.concat(pages);
-        console.log(combinedResults);
-        results.innerHTML = `
-            <h2 class="search-overlay__section-title">General Information</h2>
-            ${combinedResults.length ? '<ul class="link-list min-list">' : '<p>Sorry there are no results for this query</p>' }
-            ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a>${item.type == 'post' ? ` by ${item.authorName}` : ''}</li>`).join('')}
-            ${combinedResults.length ? '</ul>' : ''}
-            `
-        } catch(error) {
-            results.innerHTML = `<p>Sorry something has gone wrong please try later. ${error}</p>`
-        }
+        
     }
     keyPressDispatcher(e) {
         if (e.keyCode == 83 && !this.isOverlayOpen) {
