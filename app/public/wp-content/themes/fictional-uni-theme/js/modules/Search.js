@@ -49,6 +49,8 @@ class SearchObject {
         }
         this.previousValue = this.searchInput.value;
     }
+    // First example at getting search results
+    
     // loadResults(){
     //     let results = this.results;
     //     fetch(uniData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.value) // Call the fetch function passing the url of the API as a parameter
@@ -67,6 +69,9 @@ class SearchObject {
     //     });
     //     this.isSpinnerVisible = false;
     // }
+
+    // Second example at getting search results with multiple requests
+    
     // async loadMultiResultTypes() {
     //     try {
     //     let results = this.results;
@@ -88,6 +93,9 @@ class SearchObject {
     //         results.innerHTML = `<p>Sorry something has gone wrong please try later. ${error}</p>`
     //     }
     // }
+
+    // Third example at getting search results this is using a custom built json feed
+    
     loadNewResults() {
         let results = this.results;
         fetch(uniData.root_url + '/wp-json/university/v1/search?term=' + this.searchInput.value) // Call the fetch function passing the url of the API as a parameter
