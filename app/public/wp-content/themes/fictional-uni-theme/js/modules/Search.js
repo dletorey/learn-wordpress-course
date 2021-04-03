@@ -165,12 +165,13 @@ class SearchObject {
             this.closeOverlay();
         }
     }
-    openOverlay(){
+    openOverlay(event){
         this.searchOverlay.classList.add('search-overlay--active');
         this.body.classList.add('body-no-scroll');
         setTimeout(() => this.searchInput.focus(), 301)
         this.searchInput.value = '';
         this.isOverlayOpen = true;
+        event.preventDefault();
     }
     
     closeOverlay(){
