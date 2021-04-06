@@ -2,6 +2,8 @@
 function university_post_types() {
     register_post_type('campus', array(
         'show_in_rest' => true,
+        'capability_type' => 'campus', // allows permissions to be set for Campus Manager to edit events
+        'map_meta_cap' => true, // allows permissions to be set for Campus Manager to edit events
         'supports' => array('title', 'editor', 'excerpt'),
         'rewrite' => array('slug' => 'campuses'),
         'has_archive' => true,
@@ -17,6 +19,8 @@ function university_post_types() {
       ));
     register_post_type('event', array(
         'show_in_rest' => true,
+        'capability_type' => 'event', // allows permissions to be set for event planners to edit events
+        'map_meta_cap' => true, // allows permissions to be set for event planners to edit events
         'supports' => array('title', 'editor', 'excerpt'),
         'rewrite' => array('slug' => 'events'),
         'has_archive' => true,

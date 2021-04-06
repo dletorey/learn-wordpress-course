@@ -1,1 +1,2 @@
 2021/03/25 11:59:55 [error] 4850#0: *820 directory index of "/Users/dletorey/Local Sites/fictional-university/app/public/" is forbidden, client: 127.0.0.1, server: , request: "GET / HTTP/1.0", host: "fictional-university.local"
+2021/04/06 12:38:01 [alert] 1813#0: *352 writev() failed (41: Protocol wrong type for socket) while sending response to client, client: 127.0.0.1, server: , request: "GET /wp-includes/css/dashicons.min.css?ver=5.7 HTTP/1.0", host: "fictional-university.local", referrer: "http://fictional-university.local/?s=sdhfgsja"
