@@ -151,7 +151,7 @@ class SearchObject {
             `
         })
         .catch(function(ex) {
-            // This is where you run code if the server returns any errors
+            //  This is where you run code if the server returns any errors
             console.log('Well that failed ' + ex.message);
         });
         this.isSpinnerVisible = false;
