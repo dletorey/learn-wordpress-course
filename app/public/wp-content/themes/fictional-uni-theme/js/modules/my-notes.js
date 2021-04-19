@@ -11,7 +11,18 @@ class MyNotes {
 
     // Methods go here
     deleteNote() {
-        alert("You clicked the delete button");
+        $.ajax({
+            url: uniData.root_url + '/wp-json/wp/v2/note/97',
+            type: 'DELETE',
+            success: (response) => {
+                console.log("Congrats you delete the note");
+                console.log(response);
+            },
+            error:  (response) => {
+                console.log("Sorry something went wrong");
+                console.log(response);
+            }
+        })
     }
 }
 
