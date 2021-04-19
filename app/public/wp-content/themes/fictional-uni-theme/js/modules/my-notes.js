@@ -12,6 +12,9 @@ class MyNotes {
     // Methods go here
     deleteNote() {
         $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', uniData.nonce);
+            },
             url: uniData.root_url + '/wp-json/wp/v2/note/97',
             type: 'DELETE',
             success: (response) => {
