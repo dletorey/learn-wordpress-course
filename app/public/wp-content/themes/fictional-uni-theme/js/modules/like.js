@@ -34,7 +34,7 @@ class Like {
     deleteLike() {
         $.ajax({
             url: uniData.root_url + '/wp-json/uni/v1/manageLike',
-            type: 'POST',
+            type: 'DELETE',
             success: (response) => {
                 console.log(response);
             },
