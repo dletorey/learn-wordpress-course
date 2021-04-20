@@ -66,7 +66,7 @@ function university_post_types() {
         'menu_icon' => 'dashicons-welcome-write-blog'
       ));
     register_post_type('Like', array(
-        'supports' => array('title', 'thumbnail'),
+        'supports' => array('title'),
         'public' => false,
         'show_ui' => true,
         'labels' => array(
