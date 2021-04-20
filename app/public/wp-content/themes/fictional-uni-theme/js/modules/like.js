@@ -20,10 +20,28 @@ class Like {
         }
     }
     createLike() {
-        alert("Create Like");
+        $.ajax({
+            url: uniData.root_url + '/wp-json/uni/v1/manageLike',
+            type: 'POST',
+            success: (response) => {
+                console.log(response);
+            },
+            error: (response) => {
+                console.log(response);
+            }
+        })
     }
     deleteLike() {
-        alert("Delete Like");
+        $.ajax({
+            url: uniData.root_url + '/wp-json/uni/v1/manageLike',
+            type: 'POST',
+            success: (response) => {
+                console.log(response);
+            },
+            error: (response) => {
+                console.log(response);
+            }
+        })
     }
 }
 
