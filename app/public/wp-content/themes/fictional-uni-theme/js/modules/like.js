@@ -1,52 +1,64 @@
-import $ from 'jquery';
+import axios from "axios"
 
 class Like {
-    constructor() {
-        this.events();
+  constructor() {
+    if (document.querySelector(".like-box")) {
+      axios.defaults.headers.common["X-WP-Nonce"] = uniData.nonce
+      this.events()
+    }
+  }
+
+  events() {
+    document.querySelector(".like-box").addEventListener("click", e => this.ourClickDispatcher(e))
+  }
+
+  // methods
+  ourClickDispatcher(e) {
+    let currentLikeBox = e.target
+    while (!currentLikeBox.classList.contains("like-box")) {
+      currentLikeBox = currentLikeBox.parentElement
     }
 
-    events() {
-        $(".like-box").on("click", this.ourClickDispatcher.bind(this));
+    if (currentLikeBox.getAttribute("data-exists") == "yes") {
+      this.deleteLike(currentLikeBox)
+    } else {
+      this.createLike(currentLikeBox)
     }
+  }
 
-    // methods
-    ourClickDispatcher(e) {
-        let currentLikeBox = $(e.target).closest(".like-box");
+  async createLike(currentLikeBox) {
+    try {
+      const response = await axios.post(uniData.root_url + "/wp-json/uni/v1/manageLike", { "professorId": currentLikeBox.getAttribute("data-professor") })
+      if (response.data != "Only logged in users can create a like.") {
+        currentLikeBox.setAttribute("data-exists", "yes")
+        var likeCount = parseInt(currentLikeBox.querySelector(".like-count").innerHTML, 10)
+        likeCount++
+        currentLikeBox.querySelector(".like-count").innerHTML = likeCount
+        currentLikeBox.setAttribute("data-like", response.data)
+      }
+      console.log(response.data)
+    } catch (e) {
+      console.log("Sorry")
+    }
+  }
 
-        if(currentLikeBox.data('exists') == 'yes') {
-            this.deleteLike(currentLikeBox);
-        } else {
-            this.createLike(currentLikeBox);
-        }
+  async deleteLike(currentLikeBox) {
+    try {
+      const response = await axios({
+        url: uniData.root_url + "/wp-json/uni/v1/manageLike",
+        method: 'delete',
+        data: { "like": currentLikeBox.getAttribute("data-like") },
+      })
+      currentLikeBox.setAttribute("data-exists", "no")
+      var likeCount = parseInt(currentLikeBox.querySelector(".like-count").innerHTML, 10)
+      likeCount--
+      currentLikeBox.querySelector(".like-count").innerHTML = likeCount
+      currentLikeBox.setAttribute("data-like", "")
+      console.log(response.data)
+    } catch (e) {
+      console.log(e)
     }
-    createLike(currentLikeBox) {
-        $.ajax({
-            beforeSend: (xhr) => {
-                xhr.setRequestHeader('X-WP-Nonce', uniData.nonce);
-            },
-            url: uniData.root_url + '/wp-json/uni/v1/manageLike',
-            type: 'POST',
-            data: {'professorId': currentLikeBox.data('professor')},
-            success: (response) => {
-                console.log(response);
-            },
-            error: (response) => {
-                console.log(response);
-            }
-        })
-    }
-    deleteLike() {
-        $.ajax({
-            url: uniData.root_url + '/wp-json/uni/v1/manageLike',
-            type: 'DELETE',
-            success: (response) => {
-                console.log(response);
-            },
-            error: (response) => {
-                console.log(response);
-            }
-        })
-    }
+  }
 }
 
-export default Like;
+export default Like
