@@ -21,6 +21,9 @@ class Like {
     }
     createLike(currentLikeBox) {
         $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', uniData.nonce);
+            },
             url: uniData.root_url + '/wp-json/uni/v1/manageLike',
             type: 'POST',
             data: {'professorId': currentLikeBox.data('professor')},

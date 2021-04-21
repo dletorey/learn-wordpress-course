@@ -35,3 +35,14 @@
 [19-Apr-2021 17:51:29] NOTICE: exiting, bye-bye!
 [20-Apr-2021 11:48:31] NOTICE: fpm is running, pid 56676
 [20-Apr-2021 11:48:31] NOTICE: ready to handle connections
+[20-Apr-2021 16:55:23] NOTICE: Terminating ...
+[20-Apr-2021 16:55:23] NOTICE: Terminating ...
+[20-Apr-2021 16:55:23] NOTICE: exiting, bye-bye!
+[21-Apr-2021 09:54:44] NOTICE: fpm is running, pid 1407
+[21-Apr-2021 09:54:44] NOTICE: ready to handle connections
+[21-Apr-2021 11:00:51] WARNING: [pool www] child 1420 said into stderr: "sh: gs: command not found"
+[21-Apr-2021 11:23:17] NOTICE: Terminating ...
+[21-Apr-2021 11:23:17] NOTICE: Terminating ...
+[21-Apr-2021 11:23:18] NOTICE: exiting, bye-bye!
+[21-Apr-2021 11:23:21] NOTICE: fpm is running, pid 2033
+[21-Apr-2021 11:23:21] NOTICE: ready to handle connections
