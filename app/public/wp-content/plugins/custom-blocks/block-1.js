@@ -15,24 +15,27 @@ wp.blocks.registerBlockType('dave/block-1', {
         }
         return wp.element.createElement(
             "div",
-            null, 
+            null,
             wp.element.createElement(
                 "h3",
-                null,
-                "Block One"
+                {
+                    style: {
+                        border: `5px solid ${props.attributes.color}`
+                    }
+                },
+                props.attributes.content
             ),
             wp.element.createElement(
-                "input", {
+                "input",
+                {
                     type: "text",
                     onChange: updateContent,
                     value: props.attributes.content
                 }
             ),
             wp.element.createElement(
-                wp.components.ColorPicker, {
-                    onChangeComplete: updateColor,
-                    color: props.attributes.color
-                }
+                wp.components.ColorPicker,
+                null
             )
         );
     },
