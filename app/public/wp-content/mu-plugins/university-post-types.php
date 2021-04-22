@@ -91,6 +91,19 @@ function university_post_types() {
         ),
         'menu_icon' => 'dashicons-welcome-learn-more'
       ));
+    register_post_type('home-slide', array(
+        'show_in_rest' => true,
+        'supports' => array('title'),
+        'public' => true,
+        'labels' => array(
+          'name' => 'Home Slides',
+          'add_new_item' => 'Add New Home Slide',
+          'edit_item' => 'Edit Home Slide',
+          'all_items' => 'All Home Slides',
+          'singular_name' => 'Home Slide'
+        ),
+        'menu_icon' => 'dashicons-slides'
+      ));
     register_post_type('dave', array(
         'rewrite' => array('slug' => 'daves'),
         'has_archive' => true,

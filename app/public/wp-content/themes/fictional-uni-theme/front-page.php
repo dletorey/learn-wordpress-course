@@ -101,6 +101,16 @@
               </div>
             </div>
           </div>
+          <?php 
+            $slides = new WP_Query(array(
+              'posts_per_page' => -1,
+              'post_type' => 'home-slide'
+            ));
+            while($slides->have_posts()) {
+              $slides->the_post(); 
+              get_template_part('template-parts/content', 'slide');
+            }
+          ?>
         </div>
         <div class="slider__bullets glide__bullets" data-glide-el="controls[nav]"></div>
       </div>
